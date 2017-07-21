@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{template "fullname" .}}
+  labels:
+    app: {{ template "name" . }}
+    chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+  namespace: cindy-tenant-smoke
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{template "name" .}}
+    spec:
+      containers:
+      - name: {{ template "name" . }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
